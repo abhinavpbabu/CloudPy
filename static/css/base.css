@@ -1,0 +1,158 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333; /* Dark gray text color */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+nav {
+    background-color: #5183a0; /* Custom blue color */
+    padding: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure the navbar is above other content */
+}
+
+nav a{
+    text-decoration: none;
+    color:white;
+}
+
+.nav-left, .nav-center, .nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-left a, .nav-right a {
+    color: white;
+    text-decoration: none;
+    padding: 14px 16px;
+}
+
+.nav-center {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-left a:hover, .nav-right a:hover {
+    background-color: #3a6a85; /* Darker blue for hover effect */
+}
+
+/**/
+
+.menu {
+    display: flex;
+    gap: 1rem;
+    position: relative;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+
+ 
+
+.dropdown {
+    display: flex;
+    flex-direction:column;
+    align-items: left; 
+    position: relative;
+}
+
+.dropbtn {
+    color: white;
+    text-decoration: none;
+    padding: 14px 16px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #5183a0; /* Same as the navbar color */
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    flex-direction: column;
+    left:0;
+    top:100%;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #3a6a85; /* Darker blue for hover effect */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+@media (max-width: 768px) { /* Mobile devies*/
+    .menu {
+        display:none;
+        flex-direction: column;
+        gap: 0;
+        background-color: rgb(0, 93, 119);
+        position: absolute;
+        top: 100%;
+        z-index: 6;
+        right: 0;
+        width: 200px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .menu > a {
+        padding:10px;
+        display:block;
+    }  
+
+    /* #contact {
+        padding:10px;
+        border:2px solid white;
+    } */
+
+    .hamburger {
+        display: block;
+        color: white;
+        padding: 10px;
+    }
+
+    .dropbtn{
+        background-color: #3a6a85; 
+    }
+
+    .dropdown-content {
+        box-shadow: none;
+        width: 100%;
+        display: block; /* Always display dropdown content on mobile */
+        position: static; /* Remove absolute positioning on mobile */
+        background-color: rgb(0, 93, 119); /* Same as the menu */
+        padding-left: 5px; /* Indent slightly to the right */
+    }
+
+
+
+    /* .dropdown-content a {
+        padding: 10px;
+    } */
+}

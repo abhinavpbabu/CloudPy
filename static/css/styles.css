@@ -1,0 +1,228 @@
+
+  
+
+
+
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin: 80px auto 20px; /* Adjust based on navbar height */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+
+.code-section, .media-section {
+    /* flex: 1; */
+    width:50%;
+    padding: 10px;
+    overflow: auto;
+    /* resize: horizontal; */
+}
+
+.code-section {
+    resize: horizontal;
+    /* min-width: 350px; moved to desktop specific */
+    max-width:1000px;
+    background-color: #f0f0f0;
+ }
+ 
+ 
+.modal{
+    display: none;
+}
+
+/* The output img/video */
+.media-section{
+    display: flex;
+    flex-direction: column;  
+    align-items: center;
+    justify-content: center;
+    /* width:100%; */
+    /* min-width:300px; */
+}
+@media screen and (min-width: 768px) {
+    .code-section {
+        min-width: 350px;
+     }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+    flex-direction: column;
+    width:100%;
+    padding: 5px;
+    }
+
+    .code-section,.media-section {
+        width:100%;
+    }
+}
+
+
+label {
+    font-weight: bold;
+}
+textarea {
+    width:95%;
+    max-width: 1000px;
+    /* min-width: 300px; */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    overflow-x: auto;
+    white-space: pre; 
+}
+
+/*Execute button*/
+input[type="submit"] {
+    background-color: #5183a0; /* Custom blue color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    margin-top:3px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+input[type="submit"]:hover {
+    background-color: #3a6380; /* Darker shade of blue */
+}
+
+.media-section video, img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    /* max-width: 100%; */
+}
+
+p {
+    text-align: center;
+}
+
+.download-btn {
+display: inline-block;
+padding: 10px 20px;
+background-color: #4CAF50;
+color: white;
+text-align: center;
+text-decoration: none;
+border-radius: 5px;
+margin-top: 10px;
+transition: background-color 0.3s;
+}
+
+.download-btn:hover {
+    background-color: #45a049;
+}
+
+/*Spinner*/
+.spinner {
+border: 8px solid #f3f3f3; /* Light grey */
+border-top: 8px solid #3498db; /* Blue */
+border-radius: 50%;
+width: 60px;
+height: 60px;
+animation: spin 2s linear infinite;
+margin-bottom:30px;
+display: none; /* Initially hidden */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.top-row-buttons{
+    display:flex;
+    justify-content: space-between;
+}
+
+.top-row-buttons div{
+    display: flex;
+    box-sizing: border-box;
+    /* padding: 5px; */
+    gap: 5px;
+    margin-bottom: 5px;
+
+}
+
+/* .top-row-buttons div > * {
+    margin: 0 5px;
+} */
+
+/* .top-row-buttons button{
+    height:fit-content;
+    background-color: #3498db;
+} */
+
+
+
+/* Common Styles for Buttons and Dropdown */
+#save-btn,
+#save-new-btn,
+#saved-codes {
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  color: #333; /* Darker text color */
+  background-color: #e7e7e7; /* Light grey background */
+  border: 1px solid #ccc; /* Light border for a subtle look */
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  /* margin: 5px; */
+}
+
+/* Specific Styles for Buttons */
+#save-btn,
+#save-new-btn {
+  text-align: center;
+  display: inline-block;
+}
+
+/* Specific Styles for Dropdown */
+#saved-codes {
+  /* appearance: none; Removes the default arrow */
+  text-align: left; /* Aligns the text to the left to maintain a dropdown feel */
+  padding-right: 30px; /* Extra padding to make space for the custom arrow */
+  position: relative;
+}
+
+/* Custom Arrow for Dropdown */
+#saved-codes::after {
+  content: '▼'; /* Downward arrow */
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #000000; /* Arrow color */
+}
+
+/* Hover Effect */
+#save-btn:hover,
+#save-new-btn:hover,
+#saved-codes:hover {
+  background-color: #d4d4d4; /* Slightly darker grey on hover */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+}
+
+/* Active State */
+#save-btn:active,
+#save-new-btn:active,
+#saved-codes:active {
+  background-color: #ccc;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2); /* Inset shadow on click */
+}
+
+#save-btn{
+    height:100%;
+    /* box-sizing: border-box; */
+}
