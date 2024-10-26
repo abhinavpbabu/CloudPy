@@ -45,19 +45,31 @@
     pip install -r requirements.txt
     ```
 
-   **Install Docker**
+4.  **Install Docker**
 
   - [Debian](https://docs.docker.com/engine/install/debian/)
     
   - [Other systems](https://docs.docker.com/engine/install/)
+
+5. **Set Permissions**
+   
+   Set appropriate permissions that the system can write to the media directory
+   (Someone please tell me a better way to do this)
+   
+   ```
+   sudo chown -R your_username:your_username /path/to/your/project/media
+   ```
+   
+   > [!IMPORTANT]  
+   > Without doing this, The site won't work properly.
     
-5. **Run Migrations:**
+6. **Run Migrations:**
 
     ```
     python manage.py migrate
     ```
     
-6. **Start the Development Server:**
+7. **Start the Development Server:**
 
     ```
     python manage.py runserver
