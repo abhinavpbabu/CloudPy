@@ -28,30 +28,32 @@
 ### Installation
 
 1. **Clone the Repository:**
+
    ```bash
    git clone https://github.com/thesophile/CloudPy.git 
    cd CloudPy
    ```
-2. **Create a Virtual Environment:**
+   
+1. **Create a Virtual Environment:**
 
     ```
     python3 -m venv env
     source env/bin/activate  # On Windows use `env\Scripts\activate`
     ```
 
-3. **Install Dependencies:**
+1. **Install Dependencies:**
 
     ```
     pip install -r requirements.txt
     ```
 
-4.  **Install Docker**
+1. **Install Docker**
 
-  - [Debian](https://docs.docker.com/engine/install/debian/)
+   - [Debian](https://docs.docker.com/engine/install/debian/)
     
-  - [Other systems](https://docs.docker.com/engine/install/)
+   - [Other systems](https://docs.docker.com/engine/install/)
 
-5. **Set Permissions**
+1. **Set Permissions**
    
    Set appropriate permissions that the system can write to the media directory
    (Someone please tell me a better way to do this)
@@ -61,15 +63,16 @@
    ```
    
    > [!IMPORTANT]  
-   > Without doing this, The site won't work properly.
+   > Without doing this, The site won't work properly.   
+
     
-6. **Run Migrations:**
+1. **Run Migrations:**
 
     ```
     python manage.py migrate
     ```
     
-7. **Start the Development Server:**
+1. **Start the Development Server:**
 
     ```
     python manage.py runserver
