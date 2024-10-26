@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  
+<style>
+  /* To keep the div centered*/
+  body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width:90%; */
+}
+</style>
+
+<script defer src="https://www.paypal.com/sdk/js?client-id=BAAkt7zKfWUfgsYXYpAJ4ZZGonMSABTIItj3lIYTrUVcjsjveHxR4svgu8RNz-w71BCDXf8gyAzfQAZ5vY&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+
+<div id="paypal-container-KJD5KN72C249A"></div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    paypal.HostedButtons({
+      hostedButtonId: "KJD5KN72C249A",
+    }).render("#paypal-container-KJD5KN72C249A");
+  });
+</script>
+
+ 
+    
+{% endblock %}

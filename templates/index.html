@@ -1,0 +1,83 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G43JV3W9MS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G43JV3W9MS');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudPy - Cloud Computing Platform for Python Libraries</title>
+
+    <!-- Favicon; from https://realfavicongenerator.net/ -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'fav/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'fav/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'fav/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'fav/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'fav/safari-pinned-tab.svg' %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: #5183a0;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #5183a0;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to CloudPy</h1>
+        <p>Cloud Computing Platform for Advanced Python Libraries</p>
+    </header>
+    <div class="container">
+        <h2>About CloudPy</h2>
+        <p>CloudPy is a platform designed for running Python libraries in the cloud, enabling access to powerful libraries like Manim from anywhere.</p>
+        <h2>Get Started</h2>
+        <p>Start using Manim in the cloud today! Visit <a href="/manim">cloudpy.online/manim</a></p>
+    </div>
+    <footer>
+        <p>&copy; 2024 CloudPy. All rights reserved.</p>
+    </footer>
+</body>
+</html>

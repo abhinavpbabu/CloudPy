@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}CloudPy Manim{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme-button.css' %}">
+
+   <!--CodeMirror for syntax highlighting--> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.8/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.8/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.8/mode/python/python.min.js"></script>
+
+  <!-- Import themes -->
+    <!-- Ecilpse  --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/theme/eclipse.min.css">
+    <!-- Dracula --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/theme/dracula.min.css">
+    <!-- Monokai --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/monokai.min.css">
+    
+  
+
+  <!-- auto-complete -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/show-hint.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/show-hint.min.js"></script>
+    
+
+
+
+    <script>
+        function ShowSpinner() {
+            var spinner = document.getElementById('spinner');
+            spinner.style.display = 'block';
+        }
+        function HidePlaceholder() {
+            var placeholder = document.getElementById('placeholder');
+            placeholder.style.display = 'none';
+        }
+    </script>
+    <style>
+        body {
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    </style>
+
+<style>
+    /* Adjustments specific to manim.html */
+    nav {
+        height: fit-content; /* Ensure the height is not fixed */
+    }
+    .container {
+        margin-top: 80px; /* Ensure the container is properly spaced below the navbar */
+    }
+
+    .nav-right {
+        padding:2px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="code-section">
+            <div class="top-row-buttons">
+                <div>
+                    <form action="{% url 'save_current_code' %}" method="post" id="save-current-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="form_type" value="save_current">
+                        <input type="hidden" name="hidden_code_current" id="hidden_code_current">
+                        <button type="submit" id="save-btn">Save</button>
+                    </form>
+            
+                    <button type="button" id="save-new-btn">New Project</button>
+            
+                    <!-- Dropdown to open saved codes -->
+                    <select id="saved-codes">
+                        <option value="" disabled selected>Open</option>
+                        {% for code in saved_codes %}
+                        <option value="{{ code.id }}">{{ code.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <p id="noOptionsMessage" style="display: none;">No Projects saved</p>
+                    <br><br>
+                </div>
+
+                <div>
+                    <!-- <button id="toggle-theme">Toggle Theme</button> -->
+                    <label class="theme-toggle">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                
+            </div>
+    
+            <form method="post" id="code-form">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="execute">
+                <textarea name="code" id="code" rows="20" cols="50" 
+                autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">{{ previous_code }}</textarea><br>
+                <input type="submit" value="Execute" onclick="ShowSpinner(); HidePlaceholder();">
+            </form>
+        </div>
+        
+        <!-- Modal for saving code-->
+        <div id="save-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form action="{% url 'save_new_code' %}" method="post" id="save-new-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="save">
+                    <label for="name">Enter a name for the project:</label><br>
+                    <input type="text" id="name" name="name"><br>
+                    <input type="hidden" name="hidden_code_new" id="hidden_code_new">
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="media-section">
+            {{ result_message }}
+
+            {% if not result_message %}
+                <div id="spinner" class="spinner"></div>
+            {% endif %}
+
+            {% if placeholder %}
+                <img src="{% static 'img/placeholder.png' %}" alt="Image" id="placeholder">
+            {% elif "self.play" in previous_code or "self.wait" in previous_code %}
+                <video controls>
+                    <source src="{{ MEDIA_URL }}{{ class_name }}.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <a href="{{ MEDIA_URL }}{{ class_name }}.mp4" class="download-btn" download>Download</a>
+            {% elif "self.add" in previous_code %}
+                <img src="{{ MEDIA_URL }}{{ class_name }}.png" alt="Image">
+                <a href="{{ MEDIA_URL }}{{ class_name }}.png" class="download-btn" download>Download</a>
+            {% else %}
+                <p>No output available</p>
+            {% endif %}
+        </div>
+    </div>
+
+
+  
+{% endblock %}
+
+{% block extra_scripts %}
+
+<!-- {% if previous_code %}
+<script>
+    const previous_code = `"{{ previous_code }}"`;
+</script>
+{% endif %} -->
+    
+
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+            mode: 'python',
+            lineNumbers: true,
+            tabSize: 4,
+            // value: 'from manim import*',
+            theme: 'dracula',
+            extraKeys: {
+            "Ctrl-Space": "autocomplete"  // Bind autocomplete to Ctrl-Space
+            }
+        });
+        
+        // editor.setValue(previous_code);
+        // editor.setOption('theme', 'dracula');
+    </script>
+
+<script>
+    var toggle_button = document.getElementsByClassName('theme-toggle')[0];
+    toggle_button.addEventListener('change', function() {
+    var Box = toggle_button.getElementsByTagName('input')[0];    
+    if (Box.checked) {
+        editor.setOption("theme", "eclipse");  // Dark mode
+    } else {
+        editor.setOption("theme", "dracula");  // Light mode
+    }
+    });
+</script>
+    
+    <script>
+        // Get the modal
+        var modal = document.getElementById("save-modal");
+    
+        // Get the button that opens the modal
+        var savenewBtn = document.getElementById("save-new-btn");
+    
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        var openDropdown = document.getElementById("saved-codes");   
+        var saveBtn = document.getElementById("save-btn");
+        var SaveCurrentForm = document.getElementById("save-current-form");
+
+        savenewBtn.onclick = function() {
+            if (isAuthenticated){
+                modal.style.display = "block";                         
+            }
+            else{
+                alert("You have to Log in to do that");
+            }
+        }
+    
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    
+        document.getElementById("save-new-form").onsubmit = function() {
+            var name = document.getElementById("name").value.trim();
+            if (name === "") {
+                alert("Please enter a name for the code.");
+                return false; // Prevent form submission
+            }
+        }
+
+        document.getElementById('save-new-form').addEventListener('submit', function(event) {
+            var visible_code = document.getElementById('code').value;
+            var hidden_code= document.getElementById('hidden_code_new');
+            hidden_code.value = visible_code;
+        });
+
+        openDropdown.onclick = function() {
+            if(!isAuthenticated){
+                event.preventDefault();
+                alert('You will have to Log in to do that');
+            }else {
+                var options = openDropdown.getElementsByTagName("option");
+                if (options.length <= 1) { // Check if only the default option is present
+                    noOptionsMessage.style.display = "block";
+                } else {
+                    noOptionsMessage.style.display = "none";
+                }
+            }
+        }
+
+        //Open Codes
+        openDropdown.onchange = function() {
+            var codeId = this.value;
+            if (codeId) {
+                fetch(`get-code/${codeId}/`)
+                .then(response => {
+                    if (!response.ok) { //to get readeable error from ajax fetch request 
+                        return response.text().then(text => { throw new Error(text); });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Received code text:', data.code_text);
+                    // document.getElementById("code").value = data.code_text;
+                    editor.setValue(data.code_text);
+
+
+                    // Send updated code to server
+                    return fetch('update-code/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'  // Ensure CSRF token is included
+                        },
+                        body: JSON.stringify({ code_text: data.code_text })
+                    });
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(text => { throw new Error(text); });
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    console.log('Update status:', result.status);
+                    if (result.status === 'success') {
+                        console.log('Django variable updated:', result.code_text);
+                    } else {
+                        console.log('Failed to update Django variable');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            } else {
+                // document.getElementById("code").value = '';
+            }
+        }
+
+
+        saveBtn.onclick = function(event) {
+            if (!isAuthenticated) {
+                event.preventDefault();
+                alert("You have to log in to do that");
+            } else if(!current_code_present){
+                event.preventDefault();
+                alert('Create new project first');
+                console.log(current_code_present);
+            } else {
+                var visible_code = document.getElementById('code').value;
+                var hidden_code= document.getElementById('hidden_code_current');
+                hidden_code.value = visible_code;
+                console.log(`hidden_code_value: ${hidden_code.value}`);
+                SaveCurrentForm.submit();
+            }
+        }
+    </script>
+{% endblock %}
+ 

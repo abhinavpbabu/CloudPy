@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+
+        .container {
+            /* display: flex; */
+            width: 100%;
+            max-width: 1200px;
+            margin: 80px auto 20px; /* Adjust based on navbar height */
+            padding: 50px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        .contact-intro {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .contact-intro h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-intro p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        
+        .contact-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        }
+
+        .contact-box {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .contact-box h2 {
+            margin-top: 0;
+        }
+
+        .contact-box p {
+            margin-bottom: 1rem;
+        }
+
+        .contact-box a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .contact-box a:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+
+    <div class="container">
+        <div class="contact-intro">
+            <h1>Contact Us</h1>
+            <p>If you have any questions or need support, you can reach us through the following:</p>
+        </div>
+    
+        <div class="contact-container">
+            <div class="contact-box">
+                <h2>Join Our Discord Server</h2>
+                <p>Connect with our community and get real-time support and updates.</p>
+                <a href="https://discord.gg/cCJauXrv9Z" target="_blank">Join Now</a>
+            </div>
+            <div class="contact-box">
+                <h2>DM Me on Discord</h2>
+                <p>Have a quick question or need personal assistance? Send me a direct message.</p>
+                <a href="https://discord.com/users/thesophile" target="_blank">Send DM</a>
+            </div>
+            <div class="contact-box">
+                <h2>Email Me Directly</h2>
+                <p>Prefer email? Feel free to drop me a line anytime.</p>
+                <a href="mailto:divyajaca@gmail.com">Email Me</a>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock %}
