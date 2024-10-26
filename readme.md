@@ -53,10 +53,10 @@
     
    - [Other systems](https://docs.docker.com/engine/install/)
 
+### Final set-up
+
 1. **Set Permissions**
 
-> [!IMPORTANT]  
-> Without doing this, The site won't work properly. 
    
    Set appropriate permissions that the system can write to the media directory
    (Someone please tell me a better way to do this)
@@ -64,10 +64,7 @@
    ```
    sudo chown -R your_username:your_username /path/to/your/project/media
    ```
-   
-
- 
-    
+       
 1. **Run Migrations:**
 
     ```
