@@ -1,6 +1,6 @@
-Hey, this is the old version.
-the updated version is named "runwith.cloud" and can be accessed at https://github.com/abhinavpbabu/runwith.cloud.git (Now **temporarily** at https://github.com/thesophile/runwith.cloud.git)
-and the website will be available at [runwith.cloud](runwith.cloud)
+Hey, this is the code for the old version.
+the updated version of the website can be accessed at [runwith.cloud](https://runwith.cloud)
+and manim at [manim.runwith.cloud](https://manim.runwith.cloud)
 
 # CloudPy
 
@@ -66,6 +66,7 @@ and the website will be available at [runwith.cloud](runwith.cloud)
     ```
     python manage.py runserver
     ```
+
 
 
 
